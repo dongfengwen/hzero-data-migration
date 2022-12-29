@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mig.lov.mapper.HpfmLovViewLineMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.mig.lov.entity.HpfmLovViewLine">
+        <id column="view_line_id" property="viewLineId"/>
+        <result column="view_header_id" property="viewHeaderId"/>
+        <result column="tenant_id" property="tenantId"/>
+        <result column="lov_id" property="lovId"/>
+        <result column="display" property="display"/>
+        <result column="order_seq" property="orderSeq"/>
+        <result column="field_name" property="fieldName"/>
+        <result column="query_field_flag" property="queryFieldFlag"/>
+        <result column="table_field_flag" property="tableFieldFlag"/>
+        <result column="table_field_width" property="tableFieldWidth"/>
+        <result column="enabled_flag" property="enabledFlag"/>
+        <result column="object_version_number" property="objectVersionNumber"/>
+        <result column="creation_date" property="creationDate"/>
+        <result column="created_by" property="createdBy"/>
+        <result column="last_update_date" property="lastUpdateDate"/>
+        <result column="last_updated_by" property="lastUpdatedBy"/>
+        <result column="data_type" property="dataType"/>
+        <result column="source_code" property="sourceCode"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        view_line_id
+        , view_header_id, tenant_id, lov_id, display, order_seq, field_name, query_field_flag, table_field_flag, table_field_width, enabled_flag, object_version_number, creation_date, created_by, last_update_date, last_updated_by, data_type, source_code
+    </sql>
+
+</mapper>

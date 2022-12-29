@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mig.template.mapper.HimpTemplateLineMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.mig.template.entity.HimpTemplateLine">
+        <id column="id" property="id"/>
+        <result column="target_id" property="targetId"/>
+        <result column="column_index" property="columnIndex"/>
+        <result column="column_name" property="columnName"/>
+        <result column="column_code" property="columnCode"/>
+        <result column="column_type" property="columnType"/>
+        <result column="length" property="length"/>
+        <result column="enabled_flag" property="enabledFlag"/>
+        <result column="nullable_flag" property="nullableFlag"/>
+        <result column="validate_flag" property="validateFlag"/>
+        <result column="change_data_flag" property="changeDataFlag"/>
+        <result column="max_value" property="maxValue"/>
+        <result column="min_value" property="minValue"/>
+        <result column="validate_set" property="validateSet"/>
+        <result column="regular_expression" property="regularExpression"/>
+        <result column="tenant_id" property="tenantId"/>
+        <result column="object_version_number" property="objectVersionNumber"/>
+        <result column="creation_date" property="creationDate"/>
+        <result column="created_by" property="createdBy"/>
+        <result column="last_updated_by" property="lastUpdatedBy"/>
+        <result column="last_update_date" property="lastUpdateDate"/>
+        <result column="format_mask" property="formatMask"/>
+        <result column="sample_data" property="sampleData"/>
+        <result column="description" property="description"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id
+        , target_id, column_index, column_name, column_code, column_type, length, enabled_flag, nullable_flag, validate_flag, change_data_flag, max_value, min_value, validate_set, regular_expression, tenant_id, object_version_number, creation_date, created_by, last_updated_by, last_update_date, format_mask, sample_data, description
+    </sql>
+
+</mapper>

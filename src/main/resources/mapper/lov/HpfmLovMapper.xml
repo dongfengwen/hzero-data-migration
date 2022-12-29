@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mig.lov.mapper.HpfmLovMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.mig.lov.entity.HpfmLov">
+        <id column="lov_id" property="lovId"/>
+        <result column="lov_code" property="lovCode"/>
+        <result column="lov_type_code" property="lovTypeCode"/>
+        <result column="lov_type_name" property="lovTypeName"/>
+        <result column="route_name" property="routeName"/>
+        <result column="lov_name" property="lovName"/>
+        <result column="description" property="description"/>
+        <result column="tenant_id" property="tenantId"/>
+        <result column="tenant_name" property="tenantName"/>
+        <result column="parent_lov_code" property="parentLovCode"/>
+        <result column="parent_tenant_id" property="parentTenantId"/>
+        <result column="custom_sql" property="customSql"/>
+        <result column="custom_url" property="customUrl"/>
+        <result column="value_field" property="valueField"/>
+        <result column="display_field" property="displayField"/>
+        <result column="must_page_flag" property="mustPageFlag"/>
+        <result column="enabled_flag" property="enabledFlag"/>
+        <result column="object_version_number" property="objectVersionNumber"/>
+        <result column="creation_date" property="creationDate"/>
+        <result column="created_by" property="createdBy"/>
+        <result column="created_by_name" property="createdByName"/>
+        <result column="last_update_date" property="lastUpdateDate"/>
+        <result column="last_updated_by" property="lastUpdatedBy"/>
+        <result column="last_updated_by_name" property="lastUpdatedByName"/>
+        <result column="translation_sql" property="translationSql"/>
+        <result column="public_flag" property="publicFlag"/>
+        <result column="encrypt_field" property="encryptField"/>
+        <result column="decrypt_field" property="decryptField"/>
+        <collection property="devLovValueList" ofType="com.mig.lov.entity.HpfmLovValue">
+            <result column="lov_value_id" property="lovValueId"/>
+            <result column="lov_id" property="lovId"/>
+            <result column="lov_code" property="lovCode"/>
+            <result column="value" property="value"/>
+            <result column="meaning" property="meaning"/>
+            <result column="description" property="description"/>
+            <result column="tenant_id" property="tenantId"/>
+            <result column="tag" property="tag"/>
+            <result column="order_seq" property="orderSeq"/>
+            <result column="parent_value" property="parentValue"/>
+            <result column="start_date_active" property="startDateActive"/>
+            <result column="end_date_active" property="endDateActive"/>
+            <result column="enabled_flag" property="enabledFlag"/>
+            <result column="object_version_number" property="objectVersionNumber"/>
+            <result column="creation_date" property="creationDate"/>
+            <result column="created_by" property="createdBy"/>
+            <result column="last_update_date" property="lastUpdateDate"/>
+            <result column="last_updated_by" property="lastUpdatedBy"/>
+        </collection>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        hl
+        .
+        lov_id
+        ,
+            hl.lov_code,
+            hl.lov_type_code,
+            (case when hl.lov_type_code ='IDP' then '独立值集' else hl.lov_type_code end) lov_type_name,
+            hl.route_name,
+            hl.lov_name,
+            hl.description,
+            (case when hl.tenant_id = 21 then 2 else hl.tenant_id end ) tenant_id,
+            hl.parent_lov_code,
+            hl.parent_tenant_id,
+            hl.custom_sql,
+            hl.custom_url,
+            hl.value_field,
+            hl.display_field,
+            hl.must_page_flag,
+            hl.enabled_flag,
+            hl.object_version_number,
+            hl.creation_date,
+            hl.created_by,
+            hl.last_update_date,
+            hl.last_updated_by,
+            hl.translation_sql,
+            hl.public_flag,
+            hl.encrypt_field,
+            hl.decrypt_field
+    </sql>
+    <sql id="Base_Line_Column_List">
+        hlv
+        .
+        lov_value_id
+        ,
+            hlv.lov_id,
+            hlv.lov_code,
+            hlv.value,
+            hlv.meaning,
+            hlv.description,
+            hlv.tenant_id,
+            hlv.tag,
+            hlv.order_seq,
+            hlv.parent_value,
+            hlv.start_date_active,
+            hlv.end_date_active,
+            hlv.enabled_flag,
+            hlv.object_version_number,
+            hlv.creation_date,
+            hlv.created_by,
+            hlv.last_update_date,
+            hlv.last_updated_by
+    </sql>
+    <select id="selectDevPageVo" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"></include>,
+        iu.real_name as created_by_name,
+        iu2.real_name as last_updated_by_name,
+        ht.tenant_name,
+        <include refid="Base_Line_Column_List"></include>
+        from hpfm_lov hl
+        left join hpfm_lov_value hlv on hlv.lov_id = hl.lov_id
+        left join iam_user iu on iu.id = hl.created_by
+        left join iam_user iu2 on iu2.id = hl.last_updated_by
+        left join hpfm_tenant ht on ht.tenant_id = hl.tenant_id
+        where 1=1
+        <if test="lovCode != null and lovCode != '' ">
+            <bind name="lovCodeLike" value="'%'+lovCode+'%'"/>
+            AND hl.lov_code like #{lovCodeLike}
+        </if>
+        <if test="lovName != null and lovName != '' ">
+            <bind name="lovNameLike" value="'%'+lovName+'%'"/>
+            AND hl.lov_name like #{lovNameLike}
+        </if>
+        <if test="lovTypeCode != null and lovTypeCode != '' ">
+            <bind name="lovTypeCodeLike" value="'%'+lovTypeCode+'%'"/>
+            AND hl.lov_type_code like #{lovTypeCodeLike}
+        </if>
+        order by hl.lov_id desc
+    </select>
+    <select id="selectProdPageVo" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"></include>,
+        iu.real_name as created_by_name,
+        iu2.real_name as last_updated_by_name,
+        ht.tenant_name,
+        <include refid="Base_Line_Column_List"></include>
+        from hpfm_lov hl
+        left join hpfm_lov_value hlv on hlv.lov_id = hl.lov_id
+        left join iam_user iu on iu.id = hl.created_by
+        left join iam_user iu2 on iu2.id = hl.last_updated_by
+        left join hpfm_tenant ht on ht.tenant_id = hl.tenant_id
+        where 1=1
+        <if test="lovCode != null and lovCode != '' ">
+            <bind name="lovCodeLike" value="'%'+lovCode+'%'"/>
+            AND hl.lov_code like #{lovCodeLike}
+        </if>
+        <if test="lovName != null and lovName != '' ">
+            <bind name="lovNameLike" value="'%'+lovName+'%'"/>
+            AND hl.lov_name like #{lovNameLike}
+        </if>
+        <if test="lovTypeCode != null and lovTypeCode != '' ">
+            <bind name="lovTypeCodeLike" value="'%'+lovTypeCode+'%'"/>
+            AND hl.lov_type_code like #{lovTypeCodeLike}
+        </if>
+        order by hl.lov_id desc
+    </select>
+    <select id="dataDifferencesProd" resultType="com.mig.lov.entity.HpfmLovValue">
+        select lov_value_id,
+               lov_id,
+               lov_code,
+               value,
+               value   as lov_value,
+               meaning as lov_meaning,
+               description,
+               tenant_id,
+               tag,
+               order_seq,
+               parent_value,
+               start_date_active,
+               end_date_active,
+               enabled_flag,
+               object_version_number,
+               creation_date,
+               created_by,
+               last_update_date,
+               last_updated_by
+        from hpfm_lov_value
+        where lov_id = #{lovId}
+        order by order_seq
+    </select>
+    <select id="dataDifferencesDev" resultType="com.mig.lov.entity.HpfmLovValue">
+        select lov_value_id,
+               lov_id,
+               lov_code,
+               value,
+               value   as lov_value,
+               meaning as lov_meaning,
+               description,
+               tenant_id,
+               tag,
+               order_seq,
+               parent_value,
+               start_date_active,
+               end_date_active,
+               enabled_flag,
+               object_version_number,
+               creation_date,
+               created_by,
+               last_update_date,
+               last_updated_by
+        from hpfm_lov_value
+        where lov_id = #{lovId}
+        order by order_seq
+    </select>
+
+</mapper>

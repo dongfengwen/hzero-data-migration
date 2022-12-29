@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mig.lov.mapper.HpfmLovViewHeaderMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.mig.lov.entity.HpfmLovViewHeader">
+        <id column="view_header_id" property="viewHeaderId"/>
+        <result column="view_code" property="viewCode"/>
+        <result column="view_name" property="viewName"/>
+        <result column="lov_code" property="lovCode"/>
+        <result column="lov_name" property="lovName"/>
+        <result column="lov_id" property="lovId"/>
+        <result column="tenant_id" property="tenantId"/>
+        <result column="tenant_name" property="tenantName"/>
+        <result column="view_tenant_id" property="viewTenantId"/>
+        <result column="value_field" property="valueField"/>
+        <result column="display_field" property="displayField"/>
+        <result column="title" property="title"/>
+        <result column="width" property="width"/>
+        <result column="height" property="height"/>
+        <result column="page_size" property="pageSize"/>
+        <result column="delay_load_flag" property="delayLoadFlag"/>
+        <result column="children_field_name" property="childrenFieldName"/>
+        <result column="enabled_flag" property="enabledFlag"/>
+        <result column="object_version_number" property="objectVersionNumber"/>
+        <result column="creation_date" property="creationDate"/>
+        <result column="created_by" property="createdBy"/>
+        <result column="last_update_date" property="lastUpdateDate"/>
+        <result column="last_updated_by" property="lastUpdatedBy"/>
+        <collection property="devLovViewList" ofType="com.mig.lov.entity.HpfmLovViewLine">
+            <id column="view_line_id" property="viewLineId"/>
+            <result column="view_header_id" property="viewHeaderId"/>
+            <result column="tenant_id" property="tenantId"/>
+            <result column="lov_id" property="lovId"/>
+            <result column="display" property="display"/>
+            <result column="order_seq" property="orderSeq"/>
+            <result column="field_name" property="fieldName"/>
+            <result column="query_field_flag" property="queryFieldFlag"/>
+            <result column="table_field_flag" property="tableFieldFlag"/>
+            <result column="table_field_width" property="tableFieldWidth"/>
+            <result column="enabled_flag" property="enabledFlag"/>
+            <result column="object_version_number" property="objectVersionNumber"/>
+            <result column="creation_date" property="creationDate"/>
+            <result column="created_by" property="createdBy"/>
+            <result column="last_update_date" property="lastUpdateDate"/>
+            <result column="last_updated_by" property="lastUpdatedBy"/>
+            <result column="data_type" property="dataType"/>
+            <result column="source_code" property="sourceCode"/>
+        </collection>
+    </resultMap>
+
+    <select id="devPageByLovValue" resultMap="BaseResultMap">
+        SELECT hlvh.view_header_id,
+               hlvh.view_code,
+               hlvh.view_name,
+               hlvh.lov_id,
+               hlvh.tenant_id,
+               hlvh.value_field,
+               hlvh.display_field,
+               hlvh.title,
+               hlvh.width,
+               hlvh.height,
+               hlvh.page_size,
+               hlvh.delay_load_flag,
+               hlvh.children_field_name,
+               hlvh.enabled_flag,
+               hlvh.object_version_number,
+               hlvh.creation_date,
+               hlvh.created_by,
+               hlvh.last_update_date,
+               hlvh.last_updated_by,
+               (case when hlvh.tenant_id = 21 then 2 else hlvh.tenant_id end) view_tenant_id,
+               hl.lov_code,
+               hl.lov_name,
+               ht.tenant_name,
+               hlvl.view_line_id,
+               hlvl.view_header_id,
+               hlvl.tenant_id,
+               hlvl.lov_id,
+               hlvl.display,
+               hlvl.order_seq,
+               hlvl.field_name,
+               hlvl.query_field_flag,
+               hlvl.table_field_flag,
+               hlvl.table_field_width,
+               hlvl.enabled_flag,
+               hlvl.object_version_number,
+               hlvl.creation_date,
+               hlvl.created_by,
+               hlvl.last_update_date,
+               hlvl.last_updated_by,
+               hlvl.data_type,
+               hlvl.source_code
+        FROM hpfm_lov_view_header hlvh
+                 LEFT JOIN hpfm_lov hl ON hlvh.lov_id = hl.lov_id
+                 LEFT JOIN hpfm_lov_view_line hlvl ON hlvl.view_header_id = hlvh.view_header_id
+                 left join hpfm_tenant ht on ht.tenant_id = hlvh.tenant_id
+    </select>
+    <select id="prodPageByLovValue" resultType="com.mig.lov.entity.HpfmLovViewHeader">
+        SELECT hlvh.view_header_id,
+               hlvh.view_code,
+               hlvh.view_name,
+               hlvh.lov_id,
+               hlvh.tenant_id,
+               hlvh.value_field,
+               hlvh.display_field,
+               hlvh.title,
+               hlvh.width,
+               hlvh.height,
+               hlvh.page_size,
+               hlvh.delay_load_flag,
+               hlvh.children_field_name,
+               hlvh.enabled_flag,
+               hlvh.object_version_number,
+               hlvh.creation_date,
+               hlvh.created_by,
+               hlvh.last_update_date,
+               hlvh.last_updated_by,
+               (case when hlvh.tenant_id = 21 then 2 else hlvh.tenant_id end) view_tenant_id,
+               hl.lov_code,
+               hl.lov_name,
+               ht.tenant_name,
+               hlvl.view_line_id,
+               hlvl.view_header_id,
+               hlvl.tenant_id,
+               hlvl.lov_id,
+               hlvl.display,
+               hlvl.order_seq,
+               hlvl.field_name,
+               hlvl.query_field_flag,
+               hlvl.table_field_flag,
+               hlvl.table_field_width,
+               hlvl.enabled_flag,
+               hlvl.object_version_number,
+               hlvl.creation_date,
+               hlvl.created_by,
+               hlvl.last_update_date,
+               hlvl.last_updated_by,
+               hlvl.data_type,
+               hlvl.source_code
+        FROM hpfm_lov_view_header hlvh
+                 LEFT JOIN hpfm_lov hl ON hlvh.lov_id = hl.lov_id
+                 LEFT JOIN hpfm_lov_view_line hlvl ON hlvl.view_header_id = hlvh.view_header_id
+                 left join hpfm_tenant ht on ht.tenant_id = hlvh.tenant_id
+    </select>
+    <select id="devDataDifferences" resultType="com.mig.lov.entity.HpfmLovViewLine">
+        select hlvl.view_line_id,
+               hlvl.view_header_id,
+               hlvl.tenant_id,
+               hlvl.lov_id,
+               hlvl.display,
+               hlvl.order_seq,
+               hlvl.field_name,
+               hlvl.query_field_flag,
+               hlvl.table_field_flag,
+               hlvl.table_field_width,
+               hlvl.enabled_flag,
+               hlvl.object_version_number,
+               hlvl.creation_date,
+               hlvl.created_by,
+               hlvl.last_update_date,
+               hlvl.last_updated_by,
+               hlvl.data_type,
+               hlvl.source_code
+        from hpfm_lov_view_line hlvl
+        where hlvl.view_header_id = #{viewHeaderId}
+        order by hlvl.order_seq
+    </select>
+    <select id="prodDataDifferences" resultType="com.mig.lov.entity.HpfmLovViewLine">
+        select hlvl.view_line_id,
+               hlvl.view_header_id,
+               hlvl.tenant_id,
+               hlvl.lov_id,
+               hlvl.display,
+               hlvl.order_seq,
+               hlvl.field_name,
+               hlvl.query_field_flag,
+               hlvl.table_field_flag,
+               hlvl.table_field_width,
+               hlvl.enabled_flag,
+               hlvl.object_version_number,
+               hlvl.creation_date,
+               hlvl.created_by,
+               hlvl.last_update_date,
+               hlvl.last_updated_by,
+               hlvl.data_type,
+               hlvl.source_code
+        from hpfm_lov_view_line hlvl
+        where hlvl.view_header_id = #{viewHeaderId}
+        order by hlvl.order_seq
+    </select>
+
+
+</mapper>

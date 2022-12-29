@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mig.template.mapper.HimpTemplateTargetMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.mig.template.entity.HimpTemplateTarget">
+        <id column="id" property="id"/>
+        <result column="header_id" property="headerId"/>
+        <result column="sheet_index" property="sheetIndex"/>
+        <result column="sheet_name" property="sheetName"/>
+        <result column="table_name" property="tableName"/>
+        <result column="rule_script_code" property="ruleScriptCode"/>
+        <result column="enabled_flag" property="enabledFlag"/>
+        <result column="object_version_number" property="objectVersionNumber"/>
+        <result column="creation_date" property="creationDate"/>
+        <result column="created_by" property="createdBy"/>
+        <result column="last_updated_by" property="lastUpdatedBy"/>
+        <result column="last_update_date" property="lastUpdateDate"/>
+        <result column="datasource_code" property="datasourceCode"/>
+        <result column="start_line" property="startLine"/>
+        <result column="tenant_id" property="tenantId"/>
+        <result column="unit_code" property="unitCode"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id
+        , header_id, sheet_index, sheet_name, table_name, rule_script_code, enabled_flag, object_version_number, creation_date, created_by, last_updated_by, last_update_date, datasource_code, start_line, tenant_id, unit_code
+    </sql>
+
+</mapper>

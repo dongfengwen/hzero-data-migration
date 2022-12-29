@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mig.template.mapper.HimpTemplateHeaderMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.mig.template.entity.HimpTemplateHeader">
+        <id column="id" property="id"/>
+        <result column="template_code" property="templateCode"/>
+        <result column="template_name" property="templateName"/>
+        <result column="enabled_flag" property="enabledFlag"/>
+        <result column="template_type" property="templateType"/>
+        <result column="prefix_patch" property="prefixPatch"/>
+        <result column="description" property="description"/>
+        <result column="tenant_id" property="tenantId"/>
+        <result column="tenant_name" property="tenantName"/>
+        <result column="object_version_number" property="objectVersionNumber"/>
+        <result column="creation_date" property="creationDate"/>
+        <result column="created_by" property="createdBy"/>
+        <result column="last_updated_by" property="lastUpdatedBy"/>
+        <result column="last_update_date" property="lastUpdateDate"/>
+        <result column="template_url" property="templateUrl"/>
+        <result column="fragment_flag" property="fragmentFlag"/>
+
+        <result column="target_id" property="targetId"/>
+        <result column="sheet_index" property="sheetIndex"/>
+        <result column="sheet_name" property="sheetName"/>
+        <result column="table_name" property="tableName"/>
+        <result column="rule_script_code" property="ruleScriptCode"/>
+        <result column="target_enabled_flag" property="enabledFlag"/>
+        <result column="datasource_code" property="datasourceCode"/>
+        <result column="start_line" property="startLine"/>
+        <result column="unit_code" property="unitCode"/>
+        <collection property="devTemplateLineList" ofType="com.mig.template.entity.HimpTemplateLine">
+            <result column="line_id" property="id"/>
+            <result column="target_id" property="targetId"/>
+            <result column="column_index" property="columnIndex"/>
+            <result column="column_name" property="columnName"/>
+            <result column="column_code" property="columnCode"/>
+            <result column="column_type" property="columnType"/>
+            <result column="length" property="length"/>
+            <result column="line_enabled_flag" property="enabledFlag"/>
+            <result column="nullable_flag" property="nullableFlag"/>
+            <result column="validate_flag" property="validateFlag"/>
+            <result column="change_data_flag" property="changeDataFlag"/>
+            <result column="max_value" property="maxValue"/>
+            <result column="min_value" property="minValue"/>
+            <result column="validate_set" property="validateSet"/>
+            <result column="regular_expression" property="regularExpression"/>
+            <result column="tenant_id" property="tenantId"/>
+            <result column="object_version_number" property="objectVersionNumber"/>
+            <result column="creation_date" property="creationDate"/>
+            <result column="created_by" property="createdBy"/>
+            <result column="last_updated_by" property="lastUpdatedBy"/>
+            <result column="last_update_date" property="lastUpdateDate"/>
+            <result column="format_mask" property="formatMask"/>
+            <result column="sample_data" property="sampleData"/>
+            <result column="line_description" property="description"/>
+        </collection>
+    </resultMap>
+
+    <select id="pageByTemplateHeaderProd" resultMap="BaseResultMap">
+        SELECT hth.id,
+               hth.template_code,
+               hth.template_name,
+               hth.enabled_flag,
+               hth.template_type,
+               hth.prefix_patch,
+               hth.description,
+               (CASE WHEN hth.tenant_id = 21 THEN 2 ELSE hth.tenant_id END) tenant_id,
+               ht.tenant_name,
+               hth.object_version_number,
+               hth.creation_date,
+               hth.created_by,
+               hth.last_updated_by,
+               hth.last_update_date,
+               hth.template_url,
+               hth.fragment_flag,
+               htt.id           AS                                          target_id,
+               htt.header_id,
+               htt.sheet_index,
+               htt.sheet_name,
+               htt.table_name,
+               htt.rule_script_code,
+               htt.enabled_flag AS                                          target_enabled_flag,
+               htt.datasource_code,
+               htt.start_line,
+               htt.unit_code,
+               htl.id           as                                          line_id,
+               htl.column_index,
+               htl.column_name,
+               htl.column_code,
+               htl.column_type,
+               htl.length,
+               htl.enabled_flag as                                          line_enabled_flag,
+               htl.nullable_flag,
+               htl.validate_flag,
+               htl.change_data_flag,
+               htl.max_value,
+               htl.min_value,
+               htl.validate_set,
+               htl.regular_expression,
+               htl.format_mask,
+               htl.sample_data,
+               htl.description  as                                          line_description
+        FROM himp_template_header hth
+                 LEFT JOIN himp_template_target htt ON hth.id = htt.header_id
+                 LEFT JOIN hpfm_tenant ht ON ht.tenant_id = hth.tenant_id
+                 left join himp_template_line htl on htl.target_id = htt.id
+    </select>
+
+    <select id="pageByTemplateHeaderDev" resultMap="BaseResultMap">
+        SELECT hth.id,
+               hth.template_code,
+               hth.template_name,
+               hth.enabled_flag,
+               hth.template_type,
+               hth.prefix_patch,
+               hth.description,
+               (CASE WHEN hth.tenant_id = 21 THEN 2 ELSE hth.tenant_id END) tenant_id,
+               ht.tenant_name,
+               hth.object_version_number,
+               hth.creation_date,
+               hth.created_by,
+               hth.last_updated_by,
+               hth.last_update_date,
+               hth.template_url,
+               hth.fragment_flag,
+               htt.id           AS                                          target_id,
+               htt.header_id,
+               htt.sheet_index,
+               htt.sheet_name,
+               htt.table_name,
+               htt.rule_script_code,
+               htt.enabled_flag AS                                          target_enabled_flag,
+               htt.datasource_code,
+               htt.start_line,
+               htt.unit_code,
+               htl.id           as                                          line_id,
+               htl.column_index,
+               htl.column_name,
+               htl.column_code,
+               htl.column_type,
+               htl.length,
+               htl.enabled_flag as                                          line_enabled_flag,
+               htl.nullable_flag,
+               htl.validate_flag,
+               htl.change_data_flag,
+               htl.max_value,
+               htl.min_value,
+               htl.validate_set,
+               htl.regular_expression,
+               htl.format_mask,
+               htl.sample_data,
+               htl.description  as                                          line_description
+        FROM himp_template_header hth
+                 LEFT JOIN himp_template_target htt ON hth.id = htt.header_id
+                 LEFT JOIN hpfm_tenant ht ON ht.tenant_id = hth.tenant_id
+                 left join himp_template_line htl on htl.target_id = htt.id
+    </select>
+
+</mapper>
