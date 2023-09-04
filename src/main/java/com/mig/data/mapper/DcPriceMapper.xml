@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mig.data.mapper.DcPriceMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.mig.data.entity.DcPrice">
+        <id column="price_id" property="priceId" />
+        <result column="prefix" property="prefix" />
+        <result column="code" property="code" />
+        <result column="name" property="name" />
+        <result column="now_price" property="nowPrice" />
+        <result column="increase_tage" property="increaseTage" />
+        <result column="increase_price" property="increasePrice" />
+        <result column="total_hand" property="totalHand" />
+        <result column="turnover" property="turnover" />
+        <result column="pe_move" property="peMove" />
+        <result column="highest" property="highest" />
+        <result column="minimum" property="minimum" />
+        <result column="open_price" property="openPrice" />
+        <result column="received" property="received" />
+        <result column="speed" property="speed" />
+        <result column="create_time" property="createTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        price_id, prefix, code, name, now_price, increase_tage, increase_price, total_hand, turnover, pe_move, highest, minimum, open_price, received, speed, create_time
+    </sql>
+
+</mapper>

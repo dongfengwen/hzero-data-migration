@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mig.data.mapper.OmpAOrderMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.mig.data.entity.OmpAOrder">
+        <id column="id" property="id" />
+        <result column="merchant_id" property="merchantId" />
+        <result column="account_id" property="accountId" />
+        <result column="origin_order_no" property="originOrderNo" />
+        <result column="order_time" property="orderTime" />
+        <result column="account" property="account" />
+        <result column="channel_id" property="channelId" />
+        <result column="amount" property="amount" />
+        <result column="notify_url" property="notifyUrl" />
+        <result column="created_at" property="createdAt" />
+        <result column="updated_at" property="updatedAt" />
+        <result column="version" property="version" />
+        <result column="fail_reason" property="failReason" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, merchant_id, account_id, origin_order_no, order_time, account, channel_id, amount, notify_url, created_at, updated_at, version, fail_reason
+    </sql>
+
+</mapper>
