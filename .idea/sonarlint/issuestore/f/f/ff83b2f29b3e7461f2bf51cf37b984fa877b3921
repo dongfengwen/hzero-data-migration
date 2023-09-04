@@ -1,0 +1,31 @@
+
+^
+java:S1192"HDefine a constant instead of duplicating this literal "unknown" 3 times.(¨‚Å
+J
+java:S10662"/Merge this if statement with the enclosing one.(¨ìñ‚þÿÿÿÿ
+P
+java:S1141&"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ
+z
+java:S1488Ñ"cImmediately return this expression instead of assigning it to the temporary variable "originalUrl".(œ‹Õž
+u
+java:S1488ë"^Immediately return this expression instead of assigning it to the temporary variable "newUrl".(Üúý
+X
+java:S2259+"BA "NullPointerException" could be thrown; "inet" is nullable here.(Òþ„€
+P
+java:S1118":Add a private constructor to hide the implicit public one.(‹¸â¶
+m
+java:S3776"RRefactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.(ÀãÏ¤ûÿÿÿÿ
+L
+java:S26922"10 is a valid index, but is ignored by this check.(¨ìñ‚þÿÿÿÿ
+>
+java:S1905G")Remove this unnecessary cast to "String".(–Ÿ+
+c	java:S100W"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(èâá
+T
+java:S4719Z"9Replace charset name argument with StandardCharsets.UTF_8(û˜Èãüÿÿÿÿ
+>	java:S108a")Either remove or fill this block of code.(®ËúÃ
+3
+java:S2119q"Save and re-use this "Random".(¼ÝÅf
+_
+java:S5361Š"HReplace this call to "replaceAll()" by a call to the "replace()" method.(¼ÀñØ
+4
+java:S2119—"Save and re-use this "Random".(¼ÝÅf

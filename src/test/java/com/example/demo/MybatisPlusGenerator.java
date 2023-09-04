@@ -43,9 +43,9 @@ public class MybatisPlusGenerator {
         dsConfig.setDbType(DbType.MYSQL)
                 .setDriverName("com.mysql.cj.jdbc.Driver")
                 //TODO  TODO  TODO  TODO
-                .setUrl("jdbc:mysql://10.17.7.43:3306/srm?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai")
-                .setUsername("srm")
-                .setPassword("lzlj#srm");
+                .setUrl("jdbc:mysql://139.196.211.47:3306/data?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai")
+                .setUsername("root")
+                .setPassword("xdclass.net168");
         //3. 策略配置globalConfiguration中
         StrategyConfig stConfig = new StrategyConfig();
         //全局大写命名
@@ -58,10 +58,10 @@ public class MybatisPlusGenerator {
                 .setRestControllerStyle(true)
                 // 生成的表, 支持多表一起生成，以数组形式填写
                 //TODO  TODO  TODO  TODO
-                .setInclude("himp_template_header", "himp_template_line", "himp_template_target");
+                .setInclude("dc_price");
         //4. 包名策略配置
         PackageConfig pkConfig = new PackageConfig();
-        pkConfig.setParent("com.mig")
+        pkConfig.setParent("com.mig.data")
                 .setMapper("mapper")
                 .setService("service")
                 .setController("controller")

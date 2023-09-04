@@ -1,6 +1,8 @@
 package com.example.demo;
 
-import static io.vavr.API.*;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
 
 /**
  * @description:
@@ -9,12 +11,14 @@ import static io.vavr.API.*;
  */
 public class Vavr {
 
-    int i = 1;
-    String a = Match(i).of(
-            Case($(1), "one"), // 等值匹配
-            Case($(2), "two"),
-            Case($(), "?")
-    );
-    
+    public static void main(String[] args) {
+
+        String test = "";
+        for (int i = 0; i <300 ; i++) {
+            test  = test+"f"+i+",";
+        }
+        System.out.println(test);
+    }
+
 
 }

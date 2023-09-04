@@ -1,0 +1,22 @@
+
+K
+java:S1066ƒ"/Merge this if statement with the enclosing one.(İÏÙ¯ùÿÿÿÿ
+y
+java:S1488X"cImmediately return this expression instead of assigning it to the temporary variable "devLovValue".(ÌÅîà
+
+java:S1488^"dImmediately return this expression instead of assigning it to the temporary variable "prodLovValue".(ÜÈÏÔûÿÿÿÿ
+u
+java:S1488®"^Immediately return this expression instead of assigning it to the temporary variable "equals".(¸ò°¹
+Q	java:S125J"<This block of commented-out lines of code should be removed.(²õ›™
+_
+java:S5361°"HReplace this call to "replaceAll()" by a call to the "replace()" method.(©Ë»™
+d
+java:S5361¯"HReplace this call to "replaceAll()" by a call to the "replace()" method.( öõñşÿÿÿÿ
+_
+java:S5361®"HReplace this call to "replaceAll()" by a call to the "replace()" method.(¸ò°¹
+_
+java:S5361³"HReplace this call to "replaceAll()" by a call to the "replace()" method.(½°ŞÔ
+d
+java:S5361²"HReplace this call to "replaceAll()" by a call to the "replace()" method.( öõñşÿÿÿÿ
+^
+java:S5361±"HReplace this call to "replaceAll()" by a call to the "replace()" method.(Ğ–Él

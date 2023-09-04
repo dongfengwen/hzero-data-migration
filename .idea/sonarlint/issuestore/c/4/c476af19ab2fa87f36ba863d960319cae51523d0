@@ -1,0 +1,10 @@
+
+m	java:S114"QRename this interface name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(Â¦Íæ8’ãâò¥1
+l	java:S114%"QRename this interface name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(Æ“‘8’ãâò¥1
+m	java:S1141"QRename this interface name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(×”¯Ò8’ãâò¥1
+`
+java:S1214"CMove constants defined in this interfaces to another class or enum.(Â¦Íæ8”ãâò¥1
+_
+java:S1214%"CMove constants defined in this interfaces to another class or enum.(Æ“‘8–ãâò¥1
+`
+java:S12141"CMove constants defined in this interfaces to another class or enum.(×”¯Ò8–ãâò¥1

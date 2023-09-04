@@ -1,0 +1,13 @@
+
+i
+java:S1192–"FDefine a constant instead of duplicating this literal "DC:CC" 3 times.(òº˜Æşÿÿÿÿ8”äâò¥1
+R
+java:S1066ø"/Merge this if statement with the enclosing one.(ããàÒûÿÿÿÿ8—äâò¥1
+x
+java:S3923x"[Remove this conditional structure or edit its code blocks so that they're not all the same.(´ğËä8»äâò¥1
+~
+java:S3923‡"[Remove this conditional structure or edit its code blocks so that they're not all the same.(‘œÌ¯ùÿÿÿÿ8»äâò¥1
+I
+java:S1602—",Remove useless curly braces around statement(ÛàÌ8»äâò¥1
+u
+java:S3776ß"RRefactor this method to reduce its Cognitive Complexity from 22 to the 15 allowed.(à”²úøÿÿÿÿ8¾äâò¥1

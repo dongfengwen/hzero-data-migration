@@ -1,0 +1,30 @@
+
+[
+java:S1128">Remove this unused import 'org.apache.http.client.HttpClient'.(¨­—8Ø€¶‰£1
+e
+java:S1128"HRemove this unused import 'org.apache.http.client.config.RequestConfig'.(™Öˆ8Ù€¶‰£1
+^
+java:S1128"<Remove this unused import 'org.apache.http.config.Registry'.(éº±ùÿÿÿÿ8Û€¶‰£1
+e
+java:S1128"CRemove this unused import 'org.apache.http.config.RegistryBuilder'.(â—²óûÿÿÿÿ8İ€¶‰£1
+m
+java:S1128"PRemove this unused import 'org.apache.http.conn.socket.ConnectionSocketFactory'.(ÂÚğ8Ş€¶‰£1
+w
+java:S1128"URemove this unused import 'org.apache.http.conn.socket.PlainConnectionSocketFactory'.(šù‹Âıÿÿÿÿ8à€¶‰£1
+r
+java:S1128	"PRemove this unused import 'org.apache.http.conn.ssl.SSLConnectionSocketFactory'.(ÆÍ¦ıÿÿÿÿ8á€¶‰£1
+i
+java:S1128
+"LRemove this unused import 'org.apache.http.impl.client.CloseableHttpClient'.(´—Óµ8ã€¶‰£1
+l
+java:S1128"JRemove this unused import 'org.apache.http.impl.client.HttpClientBuilder'.(İØÒıÿÿÿÿ8ä€¶‰£1
+v
+java:S1128"YRemove this unused import 'org.apache.http.impl.conn.PoolingHttpClientConnectionManager'.(àÎĞÙ8æ€¶‰£1
+r
+java:S1128"URemove this unused import 'org.springframework.http.client.ClientHttpRequestFactory'.(Œûˆ8ç€¶‰£1
+€
+java:S1128"cRemove this unused import 'org.springframework.http.client.HttpComponentsClientHttpRequestFactory'.(Ø»Ó„8é€¶‰£1
+j
+java:S1128"HRemove this unused import 'org.springframework.web.client.RestTemplate'.(Îö¼Şûÿÿÿÿ8ê€¶‰£1
+Q
+java:S1128"/Remove this unused import 'java.time.Duration'.(ëá¯‰üÿÿÿÿ8ê€¶‰£1
