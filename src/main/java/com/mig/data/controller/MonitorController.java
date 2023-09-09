@@ -27,7 +27,7 @@ public class MonitorController {
 
     @ApiModelProperty("查询A股 涨跌幅")
     @PostMapping("chg")
-    @Scheduled(fixedRate = 1500)
+    //@Scheduled(fixedRate = 1500)
     public JsonData chg() {
         List<MonitorChgDTO> chg = monitorService.chg(null);
         return JsonData.buildSuccess(chg);
@@ -42,7 +42,7 @@ public class MonitorController {
 
     @ApiModelProperty("监控异常（持仓）")
     @PostMapping("sub-monitor")
-    @Scheduled(fixedRate = 1500)
+    //@Scheduled(fixedRate = 1500)
     public JsonData monitor() {
         List<MonitorChgDTO> chg = monitorService.monitor(null);
         return JsonData.buildSuccess(chg);
@@ -53,6 +53,20 @@ public class MonitorController {
     public JsonData monitorTemplate() {
         List<MonitorChgDTO> chg = monitorService.monitorTemplate();
         return JsonData.buildSuccess(chg);
+    }
+
+    @ApiModelProperty("计算")
+    @GetMapping("/logic")
+    public JsonData monitorLogic() {
+        monitorService.monitorLogic();
+        return JsonData.buildSuccess();
+    }
+
+    @ApiModelProperty("计算")
+    @GetMapping("/logic-amount")
+    public JsonData monitorLogicAmount() {
+        monitorService.monitorLogicAmount();
+        return JsonData.buildSuccess();
     }
 
 }

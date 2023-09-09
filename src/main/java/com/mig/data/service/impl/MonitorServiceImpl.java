@@ -1,8 +1,12 @@
 package com.mig.data.service.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.conditions.query.QueryChainWrapper;
 import com.mig.data.constant.MonitorConstant;
 import com.mig.data.controller.dto.*;
+import com.mig.data.entity.DcPrice;
+import com.mig.data.mapper.DcPriceMapper;
 import com.mig.data.service.MessageService;
 import com.mig.data.service.MonitorService;
 import lombok.extern.slf4j.Slf4j;
@@ -23,6 +27,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
@@ -44,6 +49,9 @@ public class MonitorServiceImpl implements MonitorService {
 
     @Autowired
     private MessageService messageService;
+
+    @Autowired
+    private DcPriceMapper dcPriceMapper;
 
     @Override
     public List<MonitorChgDTO> chg(MonitorChgRequest request) {
@@ -68,11 +76,13 @@ public class MonitorServiceImpl implements MonitorService {
                     String key = "DC:CHG:" + monitorChgDTO.getF12();
                     if (Boolean.FALSE.equals(stringRedisTemplate.hasKey(key))) {
                         stringRedisTemplate.boundValueOps(key).set(speedNowF22, 30, TimeUnit.SECONDS);
+                        this.changeDbDcPrice(monitorChgDTO);
                         messageService.sendMessage(changeChgMessage(monitorChgDTO), httpClient, MonitorConstant.WE_CHAT_CONSTANT.ROBOT);
                     } else {
                         String speedDbF22 = stringRedisTemplate.opsForValue().get(key);
                         if (new BigDecimal(speedNowF22).compareTo(new BigDecimal(speedDbF22)) > 0) {
                             stringRedisTemplate.boundValueOps(key).set(speedNowF22, 30, TimeUnit.SECONDS);
+                            this.changeDbDcPrice(monitorChgDTO);
                             messageService.sendMessage(changeChgMessage(monitorChgDTO), httpClient, MonitorConstant.WE_CHAT_CONSTANT.ROBOT);
                         }
                     }
@@ -85,8 +95,27 @@ public class MonitorServiceImpl implements MonitorService {
         return Collections.emptyList();
     }
 
-    private MessageTemplateCard changeChgMessage(MonitorChgDTO monitorChgDTO) {
+    private void changeDbDcPrice(MonitorChgDTO monitorChgDTO) {
+        DcPrice dcPrice = new DcPrice();
+        dcPrice.setCode(monitorChgDTO.getF12())
+                .setName(monitorChgDTO.getF14())
+                .setNowPrice(monitorChgDTO.getF2())
+                .setIncreaseTage(monitorChgDTO.getF3())
+                .setIncreasePrice(monitorChgDTO.getF4())
+                .setTotalHand(monitorChgDTO.getF5())
+                .setTurnover(monitorChgDTO.getF6())
+                .setPeMove(monitorChgDTO.getF9())
+                .setHighest(monitorChgDTO.getF15())
+                .setMinimum(monitorChgDTO.getF16())
+                .setPrefix(monitorChgDTO.getF13())
+                .setCreateTime(new Date())
+                .setOpenPrice(monitorChgDTO.getF17())
+                .setReceived(monitorChgDTO.getF7())
+                .setSpeed(monitorChgDTO.getF22());
+        dcPriceMapper.insert(dcPrice);
+    }
 
+    private MessageTemplateCard changeChgMessage(MonitorChgDTO monitorChgDTO) {
         return changeMessage("DC行情:" + monitorChgDTO.getF14() + " " + monitorChgDTO.getF22(), changeText(monitorChgDTO), changeSCode(monitorChgDTO), changeCode(monitorChgDTO));
     }
 
@@ -150,6 +179,43 @@ public class MonitorServiceImpl implements MonitorService {
         stringRedisTemplate.delete("DC:CC");
         monitorChgRequests.forEach(request -> {
             stringRedisTemplate.opsForList().leftPush("DC:CC", JSON.toJSONString(request));
+        });
+    }
+
+    @Override
+    public void monitorLogic() {
+        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
+        List<DcPrice> closePrice = dcPriceMapper.selectList(new QueryWrapper<DcPrice>().isNull("close_price"));
+        closePrice.forEach(dcPrice -> {
+            String url = MonitorConstant.CODE_CONSTANT.DAY_PRICE +dcPrice.getPrefix()+"."+ dcPrice.getCode() + "&_" + (System.currentTimeMillis() / 1000);
+            HttpGet httpGet = new HttpGet(url);
+            try {
+                // 3. 执行GET请求
+                CloseableHttpResponse response = httpClient.execute(httpGet);
+                // 4. 获取响应实体
+                HttpEntity entity = response.getEntity();
+                if (entity != null) {
+                    DayPriceDTO dayPriceDTO = JSON.parseObject(new JSONObject(EntityUtils.toString(entity, "UTF-8")).get("data").toString(), DayPriceDTO.class);
+                    dcPrice.setClosePrice(dayPriceDTO.getF43());
+                }
+            } catch (Exception e) {
+                log.error("Exception:{}", e);
+            }
+            dcPriceMapper.updateById(dcPrice);
+        });
+    }
+
+    @Override
+    public void monitorLogicAmount() {
+        List<DcPrice> closePriceList = dcPriceMapper.selectList(new QueryWrapper<DcPrice>().isNull("income_amount"));
+        closePriceList.forEach(dcPrice -> {
+            BigDecimal nowPrice = new BigDecimal(dcPrice.getNowPrice());
+            BigDecimal closePrice = new BigDecimal(dcPrice.getClosePrice());
+            BigDecimal divide = new BigDecimal(100000).divide(nowPrice, 0, RoundingMode.HALF_DOWN);
+            BigDecimal now = nowPrice.multiply(divide);
+            BigDecimal close = closePrice.multiply(divide);
+            dcPrice.setIncomeAmount(close.subtract(now).toString());
+            dcPriceMapper.updateById(dcPrice);
         });
     }
 

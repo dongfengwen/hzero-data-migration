@@ -5,8 +5,9 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import java.util.Date;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+
+import lombok.*;
+import lombok.experimental.Accessors;
 
 /**
  * <p>
@@ -19,6 +20,9 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @TableName("dc_price")
+@NoArgsConstructor
+@AllArgsConstructor
+@Accessors(chain = true)
 public class DcPrice implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -45,6 +49,16 @@ public class DcPrice implements Serializable {
      * 最新价格
      */
     private String nowPrice;
+
+    /**
+     * 收盘价格
+     */
+    private String closePrice;
+
+    /**
+     * 收益
+     */
+    private String incomeAmount;
 
     /**
      * 涨幅%

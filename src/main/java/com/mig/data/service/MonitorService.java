@@ -21,4 +21,10 @@ public interface MonitorService {
 
     void monitorChg(List<MonitorChgRequest> request);
 
+    void monitorLogic();
+
+    void monitorLogicAmount();
+
+
+
 }

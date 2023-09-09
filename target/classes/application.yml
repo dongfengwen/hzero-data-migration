@@ -13,16 +13,6 @@ spring:
       datasource:
         master:
           driver-class-name: com.mysql.cj.jdbc.Driver
-          url: jdbc:mysql://10.17.7.43:3306/srm
-          username: srm
-          password: lzlj#srm
-        slave_1:
-          driver-class-name: com.mysql.cj.jdbc.Driver
-          url: jdbc:mysql://10.17.7.111:3306/srm
-          username: srm
-          password: ^rwf3#ZLuV
-        slave_2:
-          driver-class-name: com.mysql.cj.jdbc.Driver
           url: jdbc:mysql://139.196.211.47:3306/data?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
           username: root
           password: xdclass.net168
@@ -31,6 +21,11 @@ spring:
     host: 139.196.211.47
     password: srm.mass
     port: 6379
+
+  data:
+    elasticsearch:
+      cluster-name: es-cluster
+      cluster-nodes: 10.133.28.55:9300
 
 #配置plus打印sql日志
 mybatis-plus:

@@ -9,6 +9,8 @@
         <result column="code" property="code" />
         <result column="name" property="name" />
         <result column="now_price" property="nowPrice" />
+        <result column="income_amount" property="incomeAmount" />
+        <result column="now_price" property="nowPrice" />
         <result column="increase_tage" property="increaseTage" />
         <result column="increase_price" property="increasePrice" />
         <result column="total_hand" property="totalHand" />
