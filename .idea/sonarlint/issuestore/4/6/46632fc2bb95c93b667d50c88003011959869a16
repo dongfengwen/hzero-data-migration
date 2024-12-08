@@ -5,6 +5,10 @@ c
 java:S1192E"FDefine a constant instead of duplicating this literal "UTF-8" 3 times.(…«üê8›·§¦1
 R
 java:S1066º"/Merge this if statement with the enclosing one.(ããàÒûÿÿÿÿ8›·§¦1
+_
+java:S68132"BRemove this field injection and use constructor injection instead.(êæÄŞ8µÀÌ•»1
+_
+java:S68135"BRemove this field injection and use constructor injection instead.(êæÄŞ8µÀÌ•»1
 y
 java:S3923•"[Remove this conditional structure or edit its code blocks so that they're not all the same.(´ğËä8 ›·§¦1
 ~
