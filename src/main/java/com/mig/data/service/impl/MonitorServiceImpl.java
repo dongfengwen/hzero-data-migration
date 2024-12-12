@@ -10,6 +10,9 @@ import com.mig.data.mapper.DcPriceMapper;
 import com.mig.data.service.MessageService;
 import com.mig.data.service.MonitorService;
 import lombok.extern.slf4j.Slf4j;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -17,12 +20,14 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDateTime;
@@ -367,5 +372,42 @@ public class MonitorServiceImpl implements MonitorService {
     @Override
     public List<MonitorChgDTO> monitorTemplate() {
         return Collections.emptyList();
+    }
+
+    private static final OkHttpClient client = new OkHttpClient();
+    public static void main(String[] args) throws IOException {
+        String url = "https://55.push2.eastmoney.com/api/qt/clist/get?cb=jQuery11240049610032218081024_1733620717030&pn=1&pz=50&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&dect=1&wbp2u=|0|0|0|web&fid=f3&fs=b:MK0354&fields=f1,f152,f2,f3,f12,f13,f14,f227,f228,f229,f230,f231,f232,f233,f234,f235,f236,f237,f238,f239,f240,f241,f242,f26,f243&_=1733620717141";
+
+        // 发起请求
+        Request request = new Request.Builder()
+                .url(url)
+                .build();
+
+        try (Response response = client.newCall(request).execute()) {
+            if (response.isSuccessful()) {
+                String body = response.body().string();
+                System.out.println(body);
+
+                // 解析 JSONP 响应，去掉回调函数包裹的部分
+                String jsonpData = body.substring(body.indexOf("(") + 1, body.lastIndexOf(")"));
+                JSONObject jsonObject = new JSONObject(jsonpData);
+
+                // 获取数据部分
+                JSONObject data = jsonObject.getJSONObject("data");
+                JSONArray items = data.getJSONArray("diff");
+
+                // 打印每条可转债数据
+                for (int i = 0; i < items.length(); i++) {
+                    JSONObject item = items.getJSONObject(i);
+                    System.out.println("可转债代码: " + item.getString("f12"));
+                    System.out.println("转债名称: " + item.getString("f14"));
+                    System.out.println("当前价格: " + item.getDouble("f2"));
+                    System.out.println("涨跌幅: " + item.getDouble("f3"));
+                    System.out.println("-----------------------------");
+                }
+            } else {
+                System.out.println("请求失败: " + response.code());
+            }
+        }
     }
 }
