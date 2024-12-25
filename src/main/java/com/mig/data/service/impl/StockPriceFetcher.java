@@ -46,7 +46,9 @@ public class StockPriceFetcher {
     }
 
     private static void fetchDataIfInTimeWindow() {
+        if(shouldExecute()){
             fetchData();
+        }
     }
     private static boolean shouldExecute() {
         // 获取当前时间
